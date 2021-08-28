@@ -4,6 +4,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public final class DraimFood extends JavaPlugin {
 
     private static DraimFood instance;
@@ -20,6 +22,18 @@ public final class DraimFood extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        ConfigManager.getInstance().ensureSmoothTransitionBetweenVersions();
+
+        // создание и загрузка конфига
+        if (!(new File("./plugins/DraimFood/config.yml").exists())) {
+            ConfigManager.getInstance().create();
+        } else {
+            reloadConfig();
+        }
+
+        if (!getVersion().equalsIgnoreCase(getConfig().getString("version"))) {
+            ConfigManager.getInstance().handleVersionMismatch();
+        }
     }
 
     @Override
