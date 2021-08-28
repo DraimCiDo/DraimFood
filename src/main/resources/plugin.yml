@@ -1,0 +1,5 @@
+name: DraimFood
+version: '${version}'
+main: me.draimgoose.draimfood.DraimFood
+api-version: 1.17
+authors: [ DraimGooSe ]
