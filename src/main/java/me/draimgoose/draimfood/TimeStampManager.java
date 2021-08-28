@@ -1,5 +1,12 @@
 package me.draimgoose.draimfood;
 
+import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Calendar;
+import java.util.Date;
+
 public class TimeStampManager {
 
     private static TimeStampManager instance;
@@ -17,4 +24,23 @@ public class TimeStampManager {
 
     String pattern = "MM/dd/yyyy HH";
 
+    public ItemStack assignTimeStamp(ItemStack item, int hoursUntilSpoilage) {
+        ItemMeta meta = item.getItemMeta();
+
+        if (meta != null) {
+            meta.setLore(asList(
+                    "",
+                    ChatColor.WHITE + ConfigManager.getInstance().expiryDateText,
+                    ChatColor.WHITE + getDateStringPlusTime(hoursUntilSpoilage)
+            ));
+
+            item.setItemMeta(meta);
+        }
+
+        return item;
+    }
+
+    private Date getDate() {
+        return Calendar.getInstance().getTime();
+    }
 }
