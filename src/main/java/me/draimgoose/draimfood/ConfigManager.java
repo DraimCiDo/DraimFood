@@ -182,7 +182,7 @@ public class ConfigManager {
 
     public void handleVersionMismatch() {
         // установка версии
-        final DraimFood draimfood = DraimFod.getInstance();
+        final DraimFood draimfood = DraimFood.getInstance();
         final FileConfiguration config = draimfood.getConfig();
         if (!config.isString("version")) {
             config.addDefault("version", draimfood.getVersion());
