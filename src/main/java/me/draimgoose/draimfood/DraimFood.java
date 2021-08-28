@@ -27,7 +27,7 @@ public final class DraimFood extends JavaPlugin {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        return
+        return CommandInterpreter.getInstance().interpretCommand(sender, label, args);
     }
 
 }
