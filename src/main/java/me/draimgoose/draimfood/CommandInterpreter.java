@@ -2,6 +2,8 @@ package me.draimgoose.draimfood;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import me.draimgoose.draimfood.Commands.TimeLeftCommand;
+import me.draimgoose.draimfood.Commands.ReloadCommand;
 
 public class CommandInterpreter {
 
@@ -29,6 +31,17 @@ public class CommandInterpreter {
                 sender.sendMessage(ChatColor.AQUA + "Автор: DraimGooSe");
                 sender.sendMessage(ChatColor.AQUA + "Исходники: https://github.com/DraimCiDo/DraimFood");
 
+                return true;
+            }
+
+            //reload command
+            if (args[0].equalsIgnoreCase("reload")) {
+                new ReloadCommand().reload(sender);
+                return true;
+            }
+
+            if (args[0].equalsIgnoreCase("timeleft")) {
+                new TimeLeftCommand().sendTimeLeft(sender);
                 return true;
             }
 
