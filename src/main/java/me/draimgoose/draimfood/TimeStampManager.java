@@ -6,9 +6,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static java.util.Arrays.asList;
+import static java.util.Calendar.HOUR_OF_DAY;
 
 public class TimeStampManager {
 
@@ -94,5 +100,75 @@ public class TimeStampManager {
             }
         }
         return false;
+    }
+
+    private String getTimeStamp(ItemStack item) {
+        if (timeStampAssigned(item)) {
+            ItemMeta meta = item.getItemMeta();
+
+            if (meta != null) {
+                List<String> lore = meta.getLore();
+
+                if (lore != null && lore.size() > 2) {
+                    return lore.get(2);
+                }
+            }
+        }
+        return null;
+    }
+
+    public String getTimeLeft(ItemStack item) {
+        if (!timeStampAssigned(item)) {
+            return null;
+        }
+
+        ItemMeta meta = item.getItemMeta();
+
+        if (meta == null) {
+            return null;
+        }
+
+        List<String> lore = meta.getLore();
+
+        if (lore == null || lore.size() < 3) {
+            return null;
+        }
+
+        String timestamp = getTimeStamp(item);
+
+        if (timestamp == null) {
+            return null;
+        }
+
+        DateFormat df = new SimpleDateFormat(pattern + ":mm:ss");
+
+        timestamp = timestamp + ":01:01";
+        timestamp = timestamp.substring(2);
+
+        Date date = null;
+        try {
+            date = df.parse(timestamp);
+        } catch (Exception e) {
+            System.out.println("Что-то пошло не так при разборе метки времени " + timestamp + " с патерном " + pattern + ":mm:ss");
+        }
+
+        ZonedDateTime zDate = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        ZonedDateTime now = ZonedDateTime.now();
+        Duration duration = Duration.between(zDate, now);
+        double totalSeconds = duration.getSeconds();
+        int minutes = (int) totalSeconds/60;
+        int hours = minutes / 60;
+        int days = hours / 24;
+        int hoursUntil = hours - (days * 24);
+
+        days = days * -1;
+        hoursUntil = hoursUntil * -1;
+
+        if (days == 0 && hoursUntil == 0) {
+            return ConfigManager.getInstance().lessThanAnHour;
+        }
+        else {
+            return String.format(ConfigManager.getInstance().timeLeftText, days + " дней и " + hoursUntil + " часов");
+        }
     }
 }
