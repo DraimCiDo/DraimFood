@@ -370,4 +370,22 @@ public class LegacyStorageManager {
             System.out.println("Возникла проблема с загрузкой текста о порче еды!");
         }
     }
+
+    public int getValueFromConfigLine(String line) {
+
+        // формат: "FoodType: (value) часов"
+
+        int firstSpaceIndex = line.indexOf(" ");
+        int lastSpaceIndex = line.lastIndexOf(" ");
+
+        int value = 0;
+        try {
+            value = Integer.parseInt(line.substring(firstSpaceIndex + 1, lastSpaceIndex));
+        } catch (Exception e) {
+            System.out.println("Что-то пошло не так при получении значения из строки конфигурации.");
+            return -1;
+        }
+
+        return value;
+    }
 }
