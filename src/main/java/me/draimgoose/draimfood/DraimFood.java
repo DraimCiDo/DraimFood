@@ -15,7 +15,7 @@ public final class DraimFood extends JavaPlugin {
     }
 
     public String getVersion() {
-        return "v0.3.5";
+        return "v0.5.0";
     }
 
     @Override
