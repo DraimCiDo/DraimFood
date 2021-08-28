@@ -8,6 +8,9 @@ public class ReloadCommand {
     public void reload(CommandSender sender) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
+            if (player.hasPermission("draimfood.reload")) {
+
+            }
         }
     }
 }
