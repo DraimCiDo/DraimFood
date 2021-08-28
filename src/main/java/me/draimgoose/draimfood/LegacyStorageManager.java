@@ -388,4 +388,18 @@ public class LegacyStorageManager {
 
         return value;
     }
+
+    // Рекурсивное удаление файла из https://www.baeldung.com/java-delete-directory
+    boolean deleteLegacyFiles(File directoryToBeDeleted) {
+        File[] allContents = directoryToBeDeleted.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                deleteLegacyFiles(file);
+            }
+        }
+        if (directoryToBeDeleted.getAbsolutePath().contains("config.yml")) {
+            return true;
+        }
+        return directoryToBeDeleted.delete();
+    }
 }
