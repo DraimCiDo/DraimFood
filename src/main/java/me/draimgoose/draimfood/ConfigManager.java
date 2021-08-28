@@ -43,5 +43,25 @@ public class ConfigManager {
         put("COOKED_MUTTON", 72);
         put("COOKED_RABBIT", 72);
         put("COOKED_COD", 72);
+        put("WHEAT", 48);
+        put("HAY_BLOCK", 48);
+        put("MELON", 48);
+        put("PUMPKIN", 48);
+        put("BROWN_MUSHROOM", 48);
+        put("RED_MUSHROOM", 48);
+        put("NETHER_WART", 168);
+        put("MELON_SLICE", 24);
+        put("CAKE", 24);
+        put("PUMPKIN_PIE", 24);
+        put("SUGAR", 72);
+        put("EGG", 72);
+        put("SUGAR_CANE", 48);
+        put("APPLE", 48);
+        put("COOKIE", 94);
+        put("POISONOUS_POTATO", 24);
+        put("CHORUS_FRUIT", 94);
+        put("DRIED_KELP", 72);
+        put("BAKED_POTATO", 94);
+        put("SWEET_BERRIES", 48);
     }};
 }
