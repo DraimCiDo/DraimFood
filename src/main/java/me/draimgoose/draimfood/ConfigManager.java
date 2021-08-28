@@ -1,6 +1,7 @@
 package me.draimgoose.draimfood;
 
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
