@@ -146,6 +146,40 @@ public class ConfigManager {
         return spoilTimes; // возвращение
     }
 
+    public void ensureSmoothTransitionBetweenVersions() {
+        File saveFolder = new File("./plugins/DraimFood/");
+
+        // если имеются старые файлы
+        if (saveFolder.exists()) {
+            System.out.println("[ВНИМАНИЕ] Обнаружено старое имя папки сохранения.");
+            // загрузка
+            LegacyStorageManager.getInstance().legacyLoadValuesFromConfig();
+            LegacyStorageManager.getInstance().legacyLoadCustomText();
+
+            // Переносит старые данные в новую конфигурацию, не делая из них говно не работающие
+            LegacyStorageManager.getInstance().spoilTimes.forEach((k, v) -> {
+                DraimFood.getInstance().getConfig().addDefault(k.name(), v);
+            });
+
+            // Сохраняет новую конфигурацию
+            DraimFood.getInstance().getConfig().addDefault("version", DraimFood.getInstance().getVersion());
+            DraimFood.getInstance().getConfig().addDefault("expiryDateText", expiryDateText);
+            DraimFood.getInstance().getConfig().addDefault("valuesLoadedText", valuesLoadedText);
+            DraimFood.getInstance().getConfig().addDefault("noPermsText", noPermsText);
+            DraimFood.getInstance().getConfig().addDefault("spoiledFoodName", spoiledFoodName);
+            DraimFood.getInstance().getConfig().addDefault("spoiledFoodLore", spoiledFoodLore);
+            DraimFood.getInstance().getConfig().addDefault("thisItemWillNeverSpoilText", neverSpoilText);
+            DraimFood.getInstance().getConfig().addDefault("timeLeftText", timeLeftText);
+            DraimFood.getInstance().getConfig().addDefault("lessThanAnHour", lessThanAnHour);
+
+            DraimFood.getInstance().getConfig().options().copyDefaults(true);
+            DraimFood.getInstance().saveConfig();
+
+            // Удаляет старую папку
+            LegacyStorageManager.getInstance().deleteLegacyFiles(saveFolder);
+        }
+    }
+
     public void handleVersionMismatch() {
         // установка версии
         final DraimFood draimfood = DraimFod.getInstance();
