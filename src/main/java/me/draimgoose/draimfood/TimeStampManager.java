@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -42,5 +43,9 @@ public class TimeStampManager {
 
     private Date getDate() {
         return Calendar.getInstance().getTime();
+    }
+
+    private String getDateStringPlusTime(int hours) {
+        return new SimpleDateFormat(pattern).format(getDatePlusTime(hours));
     }
 }
