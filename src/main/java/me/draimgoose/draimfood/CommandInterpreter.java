@@ -29,7 +29,7 @@ public class CommandInterpreter {
                 // show info
                 sender.sendMessage(ChatColor.AQUA + "DraimFood " + DraimFood.getInstance().getVersion());
                 sender.sendMessage(ChatColor.AQUA + "Автор: DraimGooSe");
-                sender.sendMessage(ChatColor.AQUA + "Исходники: https://github.com/DraimCiDo/DraimFood");
+                sender.sendMessage(ChatColor.AQUA + "Исходниик: https://github.com/DraimCiDo/DraimFood");
 
                 return true;
             }
